@@ -5,8 +5,24 @@ import { ReactComponent as LogoSvg } from './logo.svg';
 import { ReactComponent as TelegramLogoSvg } from './telegram-logo.svg';
 import { ReactComponent as InstagramLogoSvg } from './instagram-logo.svg';
 import useWindowSize from '../utils/useWindowSize';
+import { generateMedia } from 'styled-media-query';
 
-const Base = styled.div``;
+const media = generateMedia({
+  huge: '1440px',
+  large: '1170px',
+  medium: '767px',
+  small: '450px',
+});
+
+const Base = styled.div`
+  width: 100vw;
+  height: 100vh;
+
+  ${media.lessThan('medium')`
+    background: linear-gradient(180deg, #7C4DFF 0%, #4F1AE2 100%);
+  `};
+  
+`;
 
 const Background = styled.video.attrs({
   autoPlay: true,
@@ -16,21 +32,31 @@ const Background = styled.video.attrs({
   src: background
 })`
   position: absolute;
-  zIndex: -1;
+  z-index: -1;
   right: 0;
   bottom: 0;
   
   ${props => props.isLandscape && css`height: 100%;`}
   ${props => !props.isLandscape && css`width: 100%;`}
   
+  ${media.lessThan('large')`
+    right: -300px;
+  `};
+  
+  ${media.lessThan('medium')`
+    display: none;
+  `};
 `;
 
 const Content = styled.div`
-  max-width: 800px;
+  max-width: 600px;
+ 
+  padding: 100px 0 0 100px;
   
-  position: absolute;
-  top: 100px;
-  left: 100px;
+  ${media.lessThan('medium')`
+    padding: 32px 32px 0 32px;
+    max-width: auto;
+  `}
 `;
 
 const Logo = styled(LogoSvg)`  
@@ -39,7 +65,7 @@ const Logo = styled(LogoSvg)`
 `;
 
 const Title = styled.h1`
-  font-size: 68px;
+  font-size: 56px;
   font-weight: 800;
   letter-spacing: -1.5px;
   
@@ -50,6 +76,14 @@ const Title = styled.h1`
   span {
     color: #FF4081;
   }
+  
+  ${media.lessThan('medium')`
+    font-size: 36px;
+    
+    strong {
+      color: #fff;
+    }
+  `}
 `;
 
 const SocialButtons = styled.div`
@@ -57,7 +91,11 @@ const SocialButtons = styled.div`
   flex-direction: column;
   align-items: flex-start;
   
-  margin-top: 120px;
+  margin-top: 160px;
+  
+  ${media.lessThan('medium')`
+    margin-top: 40px;
+  `}
 `;
 
 const SocialButton = styled.a`
@@ -86,6 +124,19 @@ const SocialButton = styled.a`
     
     margin-right: 16px;
   }
+  
+  ${media.lessThan('medium')`    
+    font-size: 15px;
+    padding: 0 20px 0 12px;
+    height: 48px;
+    
+    svg {
+      width: 24px;
+      height: 24px;
+      
+      margin-right: 12px;
+    }
+  `}
 `;
 
 const TelegramButton = styled(SocialButton)`
@@ -102,21 +153,31 @@ const InstagramButton = styled(SocialButton)`
   }
 `;
 
-const Welcome = () => {
+const Copyright = styled.div`
+  position: absolute;
+  bottom: 32px;
+  left: 100px;
+  
+  
+  font-size: 14px;
+  
+  
+  ${media.lessThan('medium')`
+    color: #fff;
+    left: 32px;
+  `}
+`;
 
+const Welcome = () => {
   const windowSize = useWindowSize();
   const isLandscape = windowSize.height / windowSize.width >= 0.5625;
-
-  console.log(isLandscape);
-
-
 
   return (
     <Base>
       <Background isLandscape={isLandscape} />
       <Content>
         <Logo />
-        <Title>Практикуй онлайн <strong>динамические медитации Ошо 🌊</strong></Title>
+        <Title>Практикуй онлайн <strong>динамические медитации Ошо <br /> 🌊 🌊 🌊</strong></Title>
 
         <SocialButtons>
           <TelegramButton href="https://t.me/dynamica_club" target="_blank">
@@ -127,7 +188,7 @@ const Welcome = () => {
           </InstagramButton>
         </SocialButtons>
       </Content>
-
+      <Copyright>2021 © Позволь себе все 😘</Copyright>
     </Base>
   )
 }
