@@ -1,7 +1,9 @@
+import Welcome from './Welcome/Welcome';
+
 function App() {
   return (
     <div className="App">
-      Dynamica
+      <Welcome />
     </div>
   );
 }
