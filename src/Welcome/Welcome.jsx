@@ -4,6 +4,7 @@ import background from './dynamica-background.mp4';
 import { ReactComponent as LogoSvg } from './logo.svg';
 import { ReactComponent as TelegramLogoSvg } from './telegram-logo.svg';
 import { ReactComponent as InstagramLogoSvg } from './instagram-logo.svg';
+import { ReactComponent as YoutubeLogoSvg } from './youtube-logo.svg';
 import useWindowSize from '../utils/useWindowSize';
 import { generateMedia } from 'styled-media-query';
 
@@ -94,7 +95,7 @@ const SocialButtons = styled.div`
   margin-top: 160px;
   
   ${media.lessThan('medium')`
-    margin-top: 40px;
+    margin-top: 60px;
   `}
 `;
 
@@ -153,6 +154,12 @@ const InstagramButton = styled(SocialButton)`
   }
 `;
 
+const YoutubeButton = styled(SocialButton)`
+  &:hover {
+    background: #EB3223;
+  }
+`;
+
 const Copyright = styled.div`
   position: absolute;
   bottom: 32px;
@@ -177,7 +184,7 @@ const Welcome = () => {
       <Background isLandscape={isLandscape} />
       <Content>
         <Logo />
-        <Title>Практикуй онлайн <strong>динамические медитации Ошо <br /> 🌊 🌊 🌊</strong></Title>
+        <Title>Практикуй онлайн <strong>динамические медитации Ошо</strong></Title>
 
         <SocialButtons>
           <TelegramButton href="https://t.me/dynamica_club" target="_blank">
@@ -186,6 +193,9 @@ const Welcome = () => {
           <InstagramButton href="https://instagram.com/dynamica_club" target="_blank">
             <InstagramLogoSvg /> Подписывайся на Instagram
           </InstagramButton>
+          <YoutubeButton href="https://youtu.be/Ps_8MD2zb6A" target="_blank">
+            <YoutubeLogoSvg /> Подкаст про динамику
+          </YoutubeButton>
         </SocialButtons>
       </Content>
       <Copyright>2021 © Позволь себе все 😘</Copyright>
